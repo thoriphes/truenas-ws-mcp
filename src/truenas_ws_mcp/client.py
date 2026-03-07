@@ -65,7 +65,7 @@ class TrueNASClient:
 
     async def call(self, method: str, params: list | None = None) -> Any:
         """Call a TrueNAS API method and return the result."""
-        if not self._ws:
+        if not self._ws or not self._connected:
             await self.connect()
 
         self._msg_id += 1
@@ -107,11 +107,14 @@ class TrueNASClient:
         except websockets.ConnectionClosed:
             logger.warning("WebSocket connection closed")
             self._connected = False
+            self._ws = None
 
     async def close(self):
         """Close the connection."""
         if self._listen_task:
             self._listen_task.cancel()
+            self._listen_task = None
         if self._ws:
             await self._ws.close()
+            self._ws = None
         self._connected = False

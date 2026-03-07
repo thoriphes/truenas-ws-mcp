@@ -3,7 +3,7 @@ from truenas_ws_mcp.server import mcp, get_client
 
 @mcp.tool
 async def list_snapshots(dataset: str | None = None) -> list:
-    """List ZFS snapshots, optionally filtered by dataset."""
+    """List ZFS snapshots. Always specify a dataset to avoid timeouts on large systems."""
     client = await get_client()
     filters = [["dataset", "=", dataset]] if dataset else []
     return await client.call("zfs.snapshot.query", [filters])

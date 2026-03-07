@@ -23,7 +23,7 @@ async def get_pool_status(pool_name: str) -> dict:
 
 @mcp.tool()
 async def list_datasets(pool: str | None = None) -> list:
-    """List all datasets with usage and quota info. Optionally filter by pool."""
+    """List datasets with usage and quota info. Always specify a pool to avoid timeouts on large systems."""
     client = await get_client()
     if pool:
         return await client.call("pool.dataset.query", [[["pool", "=", pool]]])
