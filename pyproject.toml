@@ -1,13 +1,34 @@
 [project]
 name = "truenas-ws-mcp"
 version = "0.1.0"
-description = "TrueNAS MCP server using WebSocket API"
+description = "MCP server for TrueNAS Scale — manage storage, apps, VMs, snapshots, and more via the WebSocket API"
 requires-python = ">=3.11"
+readme = "README.md"
+license = "MIT"
+authors = [
+    { name = "Nacho", email = "nacho@timingsense.com" },
+]
+keywords = ["truenas", "mcp", "homelab", "zfs", "nas", "model-context-protocol"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: System :: Systems Administration",
+]
 dependencies = [
     "fastmcp>=2.0",
     "websockets>=13.0",
     "pydantic-settings>=2.0",
 ]
+
+[project.urls]
+Homepage = "https://github.com/thoriphes/truenas-ws-mcp"
+Repository = "https://github.com/thoriphes/truenas-ws-mcp"
+Issues = "https://github.com/thoriphes/truenas-ws-mcp/issues"
 
 [project.scripts]
 truenas-ws-mcp = "truenas_ws_mcp.server:main"

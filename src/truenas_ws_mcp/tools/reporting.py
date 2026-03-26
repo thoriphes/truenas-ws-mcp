@@ -9,8 +9,8 @@ async def list_graphs() -> list:
     uptime, arcsize, disktemp, and more. Some graphs require an identifier
     (disk name for 'disk'/'disktemp', interface name for 'interface').
     """
-    async with get_client() as client:
-        return await client.call("reporting.graphs", [])
+    client = await get_client()
+    return await client.call("reporting.graphs", [])
 
 
 @mcp.tool()
@@ -30,5 +30,5 @@ async def get_reporting_data(
     query = {"unit": unit, "page": 1}
     if identifier is not None:
         query["identifier"] = identifier
-    async with get_client() as client:
-        return await client.call("reporting.netdata_graph", [graph, query])
+    client = await get_client()
+    return await client.call("reporting.netdata_graph", [graph, query])

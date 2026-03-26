@@ -12,7 +12,7 @@ async def list_users() -> list:
 async def get_user(username: str) -> dict:
     """Get details for a specific user."""
     client = await get_client()
-    results = await client.call("user.query", [["username", "=", username]])
+    results = await client.call("user.query", [[["username", "=", username]]])
     if not results:
         raise ValueError(f"User '{username}' not found")
     return results[0]
