@@ -4,15 +4,23 @@ from fastmcp import FastMCP
 from truenas_ws_mcp.client import TrueNASClient
 from truenas_ws_mcp.config import Settings
 
-settings = Settings()
 mcp = FastMCP("TrueNAS")
 
+_settings: Settings | None = None
 _client: TrueNASClient | None = None
+
+
+def _get_settings() -> Settings:
+    global _settings
+    if _settings is None:
+        _settings = Settings()
+    return _settings
 
 
 async def get_client() -> TrueNASClient:
     global _client
     if _client is None:
+        settings = _get_settings()
         _client = TrueNASClient(
             url=settings.truenas_url,
             api_key=settings.truenas_api_key,
